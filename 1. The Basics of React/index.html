@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+</head>
+<body>
+    <div id="root"></div> <!-- 얘는 있어야 한다. -->
+    <script>
+        // 1. element 생성(변수명이 반드시 태그명과 동일할 필요는 없다.)
+        // <span>
+        const span = React.createElement(
+            "span", // 생성할 태그명
+            {
+                id: "spn",
+                class: "spn",
+                style: {color: "navy"},
+                onMouseEnter: () => {console.log(`mouse enter`)} // addEventListener
+            }, // element 속성 설정
+            "Total clicks: 0" // content
+        );
+        // <button>
+        const button = React.createElement(
+            "button",
+            {
+                id: "btn",
+                style: {backgroundColor: "red"},
+                onClick: () => {console.log(`Clicked`)} // addEventListener
+            },
+            "Click me"
+        );
+        // <span>, <button> element 를 담을 <div>
+        const div = React.createElement(
+            "div",
+            null,
+            [span, button]
+        )
+        
+        // 2. 생성한 element를 HMTL에 두기
+        const root = document.getElementById("root");
+        ReactDOM.render(div, root);
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        // 컴포넌트의 첫 글자는 반드시 대문자여야 한다.
+        const Title = () => {
+            return ( // return 을 반드시 해줘야 한다.
+                <h3 id="title" onMouseEnter={() => {console.log(`mouse enter`)}}>
+                    "Total clicks: 0"
+                </h3>
+            );
+        }
+        
+        // 컴포넌트의 첫 글자는 반드시 대문자여야 한다.
+        function Button () {
+            return ( // return 을 반드시 해줘야 한다.
+            <button style={{backgroundColor: "red"}} onClick={() => {console.log(`Clicked`)}}>
+                "Click me"
+            </button>)
+        };
+
+        // 컴포넌트의 첫 글자는 반드시 대문자여야 한다.
+        // 컴포넌트를 다른 컴포넌트 안에 넣는 방법은 아래와 같다.
+        const Container = function () {
+            return (
+                <div>
+                    <Title/>
+                    <Button/>
+                </div>
+            );
+        }
+        ReactDOM.render(<Container/>, document.getElementById("root"));
+    </script>
+</body>
+</html>

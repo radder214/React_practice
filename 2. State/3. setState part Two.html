@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const root = document.getElementById("root");
+        function App() {
+            const [counter, setCounter] = React.useState(0);
+            const onClick = () => {
+                // counter++ 나 ++counter는 변수 자체를 직접 수정하는 연산자입니다.
+                // React의 state는 직접 수정하면 안되고, 반드시 setState 함수로 새로운 값을 전달해야 합니다.
+                // 그래서 counter + 1 처럼 새로운 값을 계산해서 전달해야 합니다.
+                console.log(`call function`);
+                setCounter(counter + 1);
+            }
+            return (
+                <div>
+                    <h3>Total clicks: {counter}</h3>
+                    <button onClick={onClick}>counter update by Function</button>
+                    <br/>
+                    <button onClick={() => {console.log(`inline`); setCounter(counter + 1);}}>counter update by Inline</button>
+                </div>
+            );
+        }
+        ReactDOM.render(<App/>, root);
+    </script>
+</body>
+</html>
