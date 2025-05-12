@@ -15,13 +15,14 @@
                 // React의 state는 직접 수정하면 안되고, 반드시 setState 함수로 새로운 값을 전달해야 합니다.
                 // 그래서 counter + 1 처럼 새로운 값을 계산해서 전달해야 합니다.
                 console.log(`call function`);
-                setCounter(counter + 1);
+                setCounter(counter + 1); // App 컴포넌트가 리렌더링(리프레시)된다.
             }
             return (
                 <div>
                     <h3>Total clicks: {counter}</h3>
                     <button onClick={onClick}>counter update by Function</button>
                     <br/>
+                    {/* 인라인 함수 호출, 마찬가지로 App 컴포넌트가 리렌더링(리프레시)된다. */}
                     <button onClick={() => {console.log(`inline`); setCounter(counter + 1);}}>counter update by Inline</button>
                 </div>
             );
