@@ -41,7 +41,7 @@
                     <button onClick={() => {
                         setFlipped(cureent => !cureent);
                         setAmount(0);
-                    }}>Flip</button>
+                    }}>{flipped ? "시간 -> 분" : "분 -> 시간"}</button>
                 </div>
                 );
             }
