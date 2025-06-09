@@ -8,14 +8,10 @@
     <div id="root"></div>
     <script type="text/babel">
         function App() {
+            const [flipped, setFlipped] = React.useState(false);
             const [amount, setAmount] = React.useState(0);
             const onChange = (event) => {
                 setAmount(event.target.value);
-            };
-            const [flipped, setFlipped] = React.useState(false);
-            const onFilp = () => {
-                setAmount(0); // 입력값 초기화
-                setFlipped(current => !current); // 변수명을 반드시 current로 할 필요는 없다.
             };
             return (
                 <div>
@@ -42,7 +38,10 @@
                         />
                     </div>
                     <button onClick={() => setAmount(0)}>Reset</button>
-                    <button onClick={onFilp}>Flip</button>
+                    <button onClick={() => {
+                        setFlipped(cureent => !cureent);
+                        setAmount(0);
+                    }}>Flip</button>
                 </div>
                 );
             }
