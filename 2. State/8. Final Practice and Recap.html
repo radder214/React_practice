@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<head>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        // 분 <--> 시간(컴포넌트는 대문자로 시작)
+        function MinutesToHours() {
+            const [flipped, setFlipped] = React.useState(false);
+            const [amount, setAmount] = React.useState(0);
+            const onChange = (event) => setAmount(event.target.value);
+            return (
+                <div>
+                    <div>
+                        <label htmlFor="minutes">Minutes(분에서 시간으로 변환)</label>&nbsp;
+                        <input 
+                            value={flipped ? amount * 60 : amount}
+                            id="minutes" placeholder="Minutes"
+                            type="number"
+                            onChange={onChange}
+                            disabled={flipped}
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="hours">Hours(시간에서 분으로 변환)</label>&nbsp;
+                        <input 
+                            value={flipped ? amount : Math.round(amount / 60)}
+                            id="hours" placeholder="Hours"
+                            type="number"
+                            onChange={onChange}
+                            disabled={!flipped}
+                        />
+                    </div>
+                    <div style={{margin : "10px"}}></div>
+                    <button onClick={() => setAmount(0)}>초기화</button>
+                    <button onClick={() => {
+                        setFlipped(current => !current);
+                        setAmount(0);
+                    }}>{flipped ? "시간 -> 분" : "분 -> 시간"}</button>
+                </div>
+                );
+            }
+        // km <--> mile(컴포넌트는 대문자로 시작)
+        function KmToMiles() {
+            const [flipped, setFlipped] = React.useState(false);
+            const [length, setLength] = React.useState(0);
+            function flippedFunc() {
+                setLength(0);
+                setFlipped(current => !current);
+            }
+            // 1km = 0.621371 miles
+            // 1mile = 1.609344 km
+            return (
+                <div>
+                    <div>
+                        <label htmlFor="km">km에서 mile로 변경</label>
+                        <input
+                            value={flipped ? length * 1.609344 : length}
+                            id="km" placeholder="km"
+                            type="number"
+                            onChange={(event) => {setLength(event.target.value)}}
+                            disabled={flipped}
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="mile">mile에서 km로 변경</label>
+                        <input
+                            value={flipped ? length : length * 0.621371}
+                            id="mile" placeholder="mile"
+                            type="number"
+                            onChange={(event) => {setLength(event.target.value)}}
+                            disabled={!flipped}
+                        />
+                    </div>
+                    <div style={{margin : "10px"}}></div>
+                    <button onClick={() => setLength(0)}>초기화</button>
+                    <button onClick={flippedFunc}>{flipped ? "km -> mile" : "mile -> km"}</button>
+                        
+                </div>
+            );
+        }
+
+        function App() {
+            const [index, setIndex] = React.useState("-1");
+            return (
+                <div>
+                    <h1 className="h1">Super Converter</h1>
+                    <select value={index} onChange={(event) => setIndex(event.target.value)}>
+                        <option value="-1">Select Option</option>
+                        <option value="0">Minutes & Hours</option>
+                        <option value="1">Km & Miles</option>
+                    </select>
+                    <hr/>
+                    {/* javascript 코드는 {중괄호}를 열고 작성하면 된다. */}
+                    {
+                        index === "-1"
+                        ? <h3 style={{color : "red", textDecoration: "underline"}}>Choose Option</h3>
+                        : (index === "0" ? <MinutesToHours/> : <KmToMiles/>)
+                    }
+                </div>
+                );
+            }
+        ReactDOM.render(<App/>, document.getElementById("root"));
+    </script>
+</body>
+</html>
