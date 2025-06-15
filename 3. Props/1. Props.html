@@ -7,9 +7,37 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
+        // 파라미터 이름이 반드시 props 일 필요는 없다.(마음대로 작명)
+        // 두 번째 파라미터는 없다. 첫 번째 파라미터 = 유일한 파라미터
+        function Btn(props) { // props의 data type = object
+            console.log(props);
+            return <button style={{
+                backgroundColor: "tomato",
+                color: "white",
+                padding: "10px 20px",
+                border: 0,
+                borderRadius: 10,
+                fontSize: props.big ? 18 : 12
+            }}>
+            {props.text}</button>; // props 의 데이터 타입 = object
+        }
         function App() {
             return (
-                <div>123</div>
+                <div>
+                    {/* 속성명(오브젝트 key 명)은 마음대로 설정 가능 */}
+                    <Btn 
+                        text="Save Changes"
+                        arg1="1"
+                        arg2={1}
+                        big={true}
+                    />  {/* Btn({text:"Save Changes", arg1:"1"...}) 과 같은 의미 */}
+                    <Btn 
+                        text="Continue"
+                        param1="2"
+                        param2={2}
+                        big={false}
+                    />  {/* Btn({text:"Continue", param1:"2"...}) 과 같은 의미 */}
+                </div>
             );
         }
         ReactDOM.render(<App/>, document.getElementById("root"));
