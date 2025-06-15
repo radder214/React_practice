@@ -20,8 +20,9 @@
                 onClick={changeValue} // 진짜 EventListener 는 여기에 다는 것이다.
             >{text}</button>;
         }
+
+        const MemorizedBtn = React.memo(Btn);
         function App() {
-            console.log(`App was rendered`);
             const [value, setValue] = React.useState("Save Changes");
             const changeValue = () => setValue("Revert Changes");
             return (
@@ -29,7 +30,7 @@
                     {/* 아래에서의 onClick 은 단지 하나의 props 일 뿐이다. EventListener 가 아니다. */}
                     {/* style 도 마찬가지다. 단지 하나의 props 일 뿐, inline style 이 아니다. */}
                     <Btn text={value} changeValue={changeValue} style={{color: "green"}}/> 
-                    <Btn text="Continue"/> 
+                    <MemorizedBtn text="Continue"/>
                 </div>
             );
         }
