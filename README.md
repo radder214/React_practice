@@ -19,7 +19,7 @@
 
 # 3. Props
 - Props
-- Memo
+- React Memo
 - Prop Types
 
 # 4. Create React App
