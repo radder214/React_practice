@@ -20,7 +20,7 @@
 # 3. Props
 - Props
 - React Memo
-- Prop Types
+- PropTypes
 
 # 4. Create React App
 - Introduction
