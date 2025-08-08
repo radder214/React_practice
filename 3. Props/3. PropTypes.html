@@ -27,8 +27,8 @@
         function App() {
             return (
                 <div>
-                    <Btn text="Save Changes" fontSize={20}/>
-                    <Btn fontSize={"20"}/>
+                    <Btn text="Save Changes" fontSize={20}/>    {/* text="Save Changes" => 문자열 리터럴 "Save Changes" 전달 */}
+                    <Btn text={18} fontSize={20}/>          {/* text={"18"}         => JSX 표현식으로 문자열 "18" 전달 */}
                 </div>
             );
         }
