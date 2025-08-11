@@ -1,0 +1,17 @@
+.title {
+    color : white;
+    background-color : tomato;
+}
+
+/* 아래처럼 작성하면 스타일 적용 안 됨(따옴표) */
+/* 그냥 따옴표를 쓰지 말 것 */
+/* 
+    .btn {
+        color : "white";
+        background-color : "tomato";
+    }
+    .btn {
+        "color" : "white";
+        "background-color" : "tomato";
+    }
+*/
