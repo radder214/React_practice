@@ -10,7 +10,7 @@ function App() {
   const onClick = () => setCount(current => current + 1);
   const onChange = (event) => setKeyword(event.target.value);
 
-  // 딱 한 번만 실행하고 싶은 코드
+  // 처음 실행(렌더)시에 딱 한 번만 실행하고 싶은 코드
   useEffect(() => {
     console.log("I run only once");
   }, []);
