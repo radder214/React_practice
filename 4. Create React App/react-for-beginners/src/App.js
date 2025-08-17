@@ -1,12 +1,13 @@
 import Button from "./Button";
 import styles from "./App.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 
 // chapter 5. Effects - cleanUp
 function Hello() {
   useEffect(() => {
     console.log("Created");
     // 컴포넌트가 destroy 될 때마다 특정 함수를 실행하고 싶으면 function return
+    // [deps] 변경 시에도 실행된다.
     return () => console.log("Destroyed");
   }, []);
   return <h1>Hello</h1>;
