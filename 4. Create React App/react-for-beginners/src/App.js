@@ -2,7 +2,33 @@ import Button from "./Button";
 import styles from "./App.module.css";
 import { useState, useEffect } from "react";
 
-// chapter 5. Effects
+// chapter 5. Effects - cleanUp
+function Hello() {
+  useEffect(() => {
+    console.log("Created");
+    // 컴포넌트가 destroy 될 때마다 특정 함수를 실행하고 싶으면 function return
+    return () => console.log("Destroyed");
+  }, []);
+  return <h1>Hello</h1>;
+}
+
+function App() {
+  const [showing, setShowing] = useState(false);
+  const onClick = () => setShowing(current => !current);
+  return (
+    <div>
+      {/* JSX 내부에서는 주석을 이렇게 달면 된다.  */}
+      {/* JSX 내부에서 Javascript 코드는 {중괄호}를 열고 작성  */}
+      <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
+      {showing ? <Hello /> : null}
+    </div>
+  )
+}
+
+export default App;
+
+// chapter 5. Effects - useEffect & Deps
+/**
 function App() {
   // state
   const [count, setCount] = useState(0);
@@ -49,15 +75,16 @@ function App() {
     </div>
   );
 }
-
-export default App;
+*/
 
 // chapter 4. CRA
-// function App() {
-//   return (
-//     <div>
-//       <h1 className={styles.title}>Welcome back!</h1>
-//       <Button text={"continue"}/>
-//     </div>
-//   );
-// }
+/**
+function App() {
+  return (
+    <div>
+      <h1 className={styles.title}>Welcome back!</h1>
+      <Button text={"continue"}/>
+    </div>
+  );
+}
+*/
