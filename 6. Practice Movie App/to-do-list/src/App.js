@@ -1,39 +1,56 @@
 import { useEffect, useState } from "react";
 
 function App() {
+  // https://yts.mx/api/v2/list_movies.json?minimum_rating=8.5&sort_by=year
   const [loading, setLoading] = useState(true);
-  const [limit, setLimit] = useState(10);
-  const [coins, setCoins] = useState([]);
-  // App 컴포넌트가 맨 처음 렌더링 될 때만 API 정보를 가져온다.
+  const [movies, setMovies] = useState([]);
+  // fetch(...).then(...).then(...) 구조 대신 async-await 사용
+  const getMovies = async () => {
+    const response = await fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.5&sort_by=year`);
+    const json = await response.json();
+    setMovies(json.data.movies);
+    setLoading(false);
+    console.log(json.data.movies);
+  }
+  // App 컴포넌트가 맨 처음 렌더링 될 때만 API 정보를 가져온다. by useEffect
   useEffect(() => {
-    // 전체 데이터 가져오기
-    // fetch("https://api.coinpaprika.com/v1/tickers")
-    
-    fetch(`https://api.coinpaprika.com/v1/tickers?limit=${limit}`)
-      .then(response => {
-        console.log(response);
-        // Response 객체를 JSON으로 파싱
-        return response.json(); // 해당 작업도 비동기로 수행
-      })
-      .then(json => {
-        console.log(json); // 실제 데이터 (배열 or 객체)
-        setCoins(json);
+    getMovies();
+    // cf) getMovies 함수를 따로 만들 필요 없이 아래와 같이 즉시 실행 함수로 해도됨
+  /* 
+    (
+      async () => {
+        const response = await fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.5&sort_by=year`);
+        const json = await response.json();
+        setMovies(json.data.movies);
         setLoading(false);
-      });
+        console.log(json.data.movies);
+      }
+    )();
+  */
   }, []);
   return (
     <div>
-      <h1>The Coins {coins.length === 0 ? null : `(${coins.length})`}</h1>
       {
         loading
-        ? (<strong>Loading...</strong>)
+        ? (<h1>Loading...</h1>)
         : (
             <ul>
-              {/* <ul>...</ul> JSX 영역 안에서 JS를 쓰는 것이므로 {중괄호}로 감싸야한다.(아래 map 부분) */}
               {
-                coins.map((item, index) => {
-                  // <li>...</li> JSX 영역에서 JS를 쓰는 것이므로 {중괄호}로 감싸야한다.
-                  return <li id={item.id} key={item.id}>{item.name} ({item.symbol}) : {item.quotes.USD.price} USD</li>
+                movies.map((item, index) => {
+                  return (
+                    <div id={item.id} key={item.id}>
+                      <img src={item.medium_cover_image} alt="" />
+                      <h2>{item.title}</h2>
+                      <p>{item.summary === "" ? "No Contents" : item.summary}</p>
+                      <ul>
+                        {
+                          item.genres.map(genre => {
+                            return <li key={genre}>{genre}</li>
+                          })
+                        }
+                      </ul>
+                    </div>
+                  )
                 })
               }
             </ul>
