@@ -24,8 +24,8 @@ function App() {
       return;
     }
     // 평소처럼 arrow function을 써도되지만 일반 함수 선언문을 써보고 싶어서 아래와 같이 작성
-    // toDos.push() 같은건 쓰면 안 된다. === React에서 state를 직접 수정하는 일은 없다.
     setToDos(function(currentArray) {
+      // toDos.push() 같은건 쓰면 안 된다. === React에서 state를 직접 수정하는 일은 없다.
       return [toDo, ...currentArray]; // {중괄호}를 썼기 때문에 return 문은 필수 작성
     });
     setToDo("");
