@@ -1,0 +1,32 @@
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+
+// 부모 컴포넌트(App)로부터 prop을 받는다.
+export default function Movie({coverImg, title, summary, genres}) { // Destructuring Assignment
+    return (
+        <div>
+            <img src={coverImg} alt={title} />
+            <h2>
+                {/* anchor 태그 사용 시 브라우저 새로고침 발생 */}
+                {/* <a href="/movie"></a> */}
+                <Link to="/movie">{title}</Link>
+            </h2>
+            <p>{summary === "" ? "No Contents" : summary}</p>
+            <ul>
+                {
+                    genres.map(genre => {
+                        return <li key={genre}>{genre}</li>
+                    })
+                }
+            </ul>
+        </div>
+    );
+}
+
+// 관례적으로 컴포넌트 선언 이후에 propTypes 붙이는 것을 권장
+Movie.propTypes = {
+    coverImg: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    summary: PropTypes.string.isRequired,
+    genres: PropTypes.arrayOf(PropTypes.string).isRequired
+}

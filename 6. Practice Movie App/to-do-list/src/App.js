@@ -1,63 +1,43 @@
-import { useEffect, useState } from "react";
+import Home from "./routes/Home";
+import Detail from "./routes/Detail";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
 function App() {
-  // https://yts.mx/api/v2/list_movies.json?minimum_rating=8.5&sort_by=year
-  const [loading, setLoading] = useState(true);
-  const [movies, setMovies] = useState([]);
-  // fetch(...).then(...).then(...) 구조 대신 async-await 사용
-  const getMovies = async () => {
-    const response = await fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.5&sort_by=year`);
-    const json = await response.json();
-    setMovies(json.data.movies);
-    setLoading(false);
-    console.log(json.data.movies);
-  }
-  // App 컴포넌트가 맨 처음 렌더링 될 때만 API 정보를 가져온다. by useEffect
-  useEffect(() => {
-    getMovies();
-    // cf) getMovies 함수를 따로 만들 필요 없이 아래와 같이 즉시 실행 함수로 해도됨
-  /* 
-    (
-      async () => {
-        const response = await fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.5&sort_by=year`);
-        const json = await response.json();
-        setMovies(json.data.movies);
-        setLoading(false);
-        console.log(json.data.movies);
-      }
-    )();
-  */
-  }, []);
+  /**
+   * <Router> 컴포넌트
+   * - 가장 먼저 렌더링
+   * - <Router> 안에 들어가는 것 = 사용자에게 보여주고 싶은 것
+   * 
+   * <Switch> 컴포넌트
+   * - <Route>(=URL)를 찾는 역할, <Route>를 찾으면 컴포넌트를 렌더링한다.
+   * - 한 번에 하나의 <Route>만 렌더링 해준다.
+   * - 반대로 말하면 React Router는 두 개의 <Route>를 한 번에 렌더링할 수 있다.
+   * 
+   * <Link> 컴포넌트
+   * - 브라우저 새로고침 없이 사용자를 다른 페이지로 이동시켜주는 컴포넌트
+   * - anchor 태그의 href를 사용하면 브라우저 자체가 새로고침 된다.
+   */
+
   return (
-    <div>
-      {
-        loading
-        ? (<h1>Loading...</h1>)
-        : (
-            <ul>
-              {
-                movies.map((item, index) => {
-                  return (
-                    <div id={item.id} key={item.id}>
-                      <img src={item.medium_cover_image} alt="" />
-                      <h2>{item.title}</h2>
-                      <p>{item.summary === "" ? "No Contents" : item.summary}</p>
-                      <ul>
-                        {
-                          item.genres.map(genre => {
-                            return <li key={genre}>{genre}</li>
-                          })
-                        }
-                      </ul>
-                    </div>
-                  )
-                })
-              }
-            </ul>
-          )
-      }
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/hello">
+          {/* 이렇게 바로 보여줄수도 있다. */}
+          <h1>hello</h1>
+        </Route>
+        <Route path="/movie">
+          <Detail/>
+        </Route>
+        <Route path="/">
+          <Home/>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
-export default App;
+export default App; 
