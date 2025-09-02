@@ -26,10 +26,9 @@ function App() {
     <Router>
       <Switch>
         <Route path="/hello">
-          {/* 이렇게 바로 보여줄수도 있다. */}
-          <h1>hello</h1>
+          <h1>hello</h1> {/* 이렇게 바로 보여줄수도 있다. */}
         </Route>
-        <Route path="/movie">
+        <Route path="/movie/:id"> {/* :id => 동적 URL, 반드시 콜론(:)이 있어야 한다. */}
           <Detail/>
         </Route>
         <Route path="/">

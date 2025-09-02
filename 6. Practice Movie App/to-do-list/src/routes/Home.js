@@ -42,7 +42,8 @@ export default function Home() {
                                 // key prop은 동일하게 있어야 한다.
                                 return <Movie
                                     key={item.id}
-                                    coverImg={item.medium_cover_image}
+                                    id={item.id}
+                                    coverImg={item.medium_cover_image} // key={value}의 이름이 반드시 동일할 필요는 없다.
                                     title={item.title}
                                     summary={item.summary}
                                     genres={item.genres}
