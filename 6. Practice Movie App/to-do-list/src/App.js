@@ -21,7 +21,6 @@ function App() {
    * - 브라우저 새로고침 없이 사용자를 다른 페이지로 이동시켜주는 컴포넌트
    * - anchor 태그의 href를 사용하면 브라우저 자체가 새로고침 된다.
    */
-
   return (
     <Router>
       <Switch>
